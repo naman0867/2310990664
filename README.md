@@ -1,16 +1,21 @@
-# Notification API
+
+---
+
+##  README (small fix)
+
+```md
+# Notification System Backend
 
 ## Features
-- Send notification
-- Get notifications
-- Mark as read
-- Logging middleware
+- Logging Middleware
+- Notification API
+- Priority Notification Logic
+- Scalable Design
 
-## Run
+## Tech Stack
+- Node.js
+- Express
+
+## How to Run
 npm install
 node index.js
-
-## APIs
-POST /notify  
-GET /notifications  
-PUT /read/:id
