@@ -1,9 +1,5 @@
+## README
 
----
-
-## ✅ README (small fix)
-
-```md
 # Notification System Backend
 
 ## Features
