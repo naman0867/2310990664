@@ -127,7 +127,9 @@ function getPriorityScore(notification) {
         Event: 1
     };
 
-    const timeDiff = Date.now() - new Date(notification.Timestamp).getTime();
+    // Convert to valid date format
+    const timestamp = new Date(notification.Timestamp.replace(" ", "T"));
+    const timeDiff = Date.now() - timestamp.getTime();
 
     return weights[notification.Type] * 1000000 - timeDiff;
 }
@@ -142,8 +144,16 @@ function getTopNotifications(notifications, n = 10) {
         .slice(0, n);
 }
 
----
+// Sample Data (fallback if API fails)
+const notifications = [
+  { Type: "Placement", Message: "Company hiring", Timestamp: "2026-04-22 17:51:18" },
+  { Type: "Result", Message: "mid sem", Timestamp: "2026-04-22 17:51:30" },
+  { Type: "Event", Message: "fest", Timestamp: "2026-04-22 17:50:06" }
+];
 
+// Run and print result
+const topNotifications = getTopNotifications(notifications);
+console.log(topNotifications);
 # ⚡ STEP 2 — QUICK README (important)
 
 Create `README.md`:
