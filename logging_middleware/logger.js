@@ -1,30 +1,16 @@
-const logger = (req, res, next) => {
-    const start = Date.now();
+import axios from "axios";
 
-    const oldSend = res.send;
+const LOG_API = "http://20.207.122.201/evaluation-service/logs";
 
-    let responseData;
-
-    res.send = function (data) {
-        responseData = data;
-        return oldSend.apply(res, arguments);
-    };
-
-    res.on("finish", () => {
-        const duration = Date.now() - start;
-
-        console.log("========== API LOG ==========");
-        console.log("Time:", new Date().toISOString());
-        console.log("Method:", req.method);
-        console.log("URL:", req.originalUrl);
-        console.log("Request Body:", req.body);
-        console.log("Status Code:", res.statusCode);
-        console.log("Response:", responseData);
-        console.log("Response Time:", duration + "ms");
-        console.log("=============================\n");
+export const logEvent = async (level, message, pkg = "route") => {
+  try {
+    await axios.post(LOG_API, {
+      stack: "backend",
+      level: level,
+      package: pkg,
+      message: message
     });
-
-    next();
+  } catch (err) {
+    console.log("Logging failed:", err.message);
+  }
 };
-
-export default logger;
